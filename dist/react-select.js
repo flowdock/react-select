@@ -2,8 +2,8 @@
 (function (global){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
-var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
+var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
+var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
 
 var Option = React.createClass({
 	displayName: 'Option',
@@ -69,9 +69,9 @@ module.exports = Option;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
-var Input = (typeof window !== "undefined" ? window['AutosizeInput'] : typeof global !== "undefined" ? global['AutosizeInput'] : null);
-var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
+var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
+var Input = (typeof window !== "undefined" ? window.AutosizeInput : typeof global !== "undefined" ? global.AutosizeInput : null);
+var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
 var Value = require('./Value');
 var SingleValue = require('./SingleValue');
 var Option = require('./Option');
@@ -83,6 +83,7 @@ var Select = React.createClass({
 	displayName: 'Select',
 
 	propTypes: {
+		isOpen: React.PropTypes.bool,
 		addLabelText: React.PropTypes.string, // placeholder displayed when you want to add a label on a multi-value input
 		allowCreate: React.PropTypes.bool, // whether to allow creation of new entries
 		asyncOptions: React.PropTypes.func, // function to call to get options
@@ -124,6 +125,7 @@ var Select = React.createClass({
 
 	getDefaultProps: function getDefaultProps() {
 		return {
+			isOpen: false,
 			addLabelText: 'Add "{label}"?',
 			allowCreate: false,
 			asyncOptions: undefined,
@@ -170,7 +172,7 @@ var Select = React.createClass({
    */
 			isFocused: false,
 			isLoading: false,
-			isOpen: false,
+			isOpen: true,
 			options: this.props.options
 		};
 	},
@@ -941,8 +943,8 @@ module.exports = Select;
 (function (global){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
-var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
+var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
+var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
 
 var SingleValue = React.createClass({
 	displayName: 'SingleValue',
@@ -973,8 +975,8 @@ module.exports = SingleValue;
 (function (global){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
-var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
+var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
+var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
 
 var Value = React.createClass({
 

@@ -196,6 +196,7 @@ var Select = React.createClass({
 	displayName: 'Select',
 
 	propTypes: {
+		isOpen: React.PropTypes.bool,
 		addLabelText: React.PropTypes.string, // placeholder displayed when you want to add a label on a multi-value input
 		allowCreate: React.PropTypes.bool, // whether to allow creation of new entries
 		asyncOptions: React.PropTypes.func, // function to call to get options
@@ -237,6 +238,7 @@ var Select = React.createClass({
 
 	getDefaultProps: function getDefaultProps() {
 		return {
+			isOpen: false,
 			addLabelText: 'Add "{label}"?',
 			allowCreate: false,
 			asyncOptions: undefined,
@@ -283,7 +285,7 @@ var Select = React.createClass({
    */
 			isFocused: false,
 			isLoading: false,
-			isOpen: false,
+			isOpen: true,
 			options: this.props.options
 		};
 	},

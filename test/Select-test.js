@@ -2802,6 +2802,22 @@ describe('Select', function() {
 				});
 			});
 		});
+
+		describe('isOpen=true', function () {
+
+			beforeEach(function () {
+				instance = createControl({
+					options: defaultOptions,
+					isOpen: true
+				});
+			});
+
+			it('is open', function () {
+					expect(React.findDOMNode(instance), 'to have attributes', {
+						class: 'is-open'
+					});
+			});
+		});
 	});
 
 	describe('clicking outside', function () {
