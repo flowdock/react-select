@@ -18,6 +18,7 @@ var Select = React.createClass({
 	propTypes: {
 		addLabelText: React.PropTypes.string,      // placeholder displayed when you want to add a label on a multi-value input
 		allowCreate: React.PropTypes.bool,         // whether to allow creation of new entries
+		alwaysOpen: React.PropTypes.bool,         // pass if dropdown should be always open
 		asyncOptions: React.PropTypes.func,        // function to call to get options
 		autoload: React.PropTypes.bool,            // whether to auto-load the default async options set
 		backspaceRemoves: React.PropTypes.bool,    // whether backspace removes an item if there is no text input
@@ -60,6 +61,7 @@ var Select = React.createClass({
 		return {
 			addLabelText: 'Add "{label}"?',
 			allowCreate: false,
+			alwaysOpen: false,
 			asyncOptions: undefined,
 			autoload: true,
 			backspaceRemoves: true,
@@ -105,7 +107,7 @@ var Select = React.createClass({
 			*/
 			isFocused: false,
 			isLoading: false,
-			isOpen: this.props.isOpen,
+			isOpen: this.props.isOpen || this.props.alwaysOpen,
 			options: this.props.options
 		};
 	},
@@ -114,7 +116,7 @@ var Select = React.createClass({
 		this._optionsCache = {};
 		this._optionsFilterString = '';
 		this._closeMenuIfClickedOutside = (event) => {
-			if (!this.state.isOpen) {
+			if (!this.state.isOpen || this.props.alwaysOpen) {
 				return;
 			}
 			var menuElem = React.findDOMNode(this.refs.selectMenuContainer);
@@ -296,7 +298,7 @@ var Select = React.createClass({
 			this._focusAfterUpdate = true;
 		}
 		var newState = this.getStateFromValue(value);
-		newState.isOpen = false;
+		newState.isOpen = false || this.props.alwaysOpen;
 		this.fireChangeEvent(newState);
 		this.setState(newState);
 	},
@@ -360,7 +362,7 @@ var Select = React.createClass({
 		event.preventDefault();
 
 		// for the non-searchable select, close the dropdown when button is clicked
-		if (this.state.isOpen && !this.props.searchable) {
+		if (!this.props.alwaysOpen && this.state.isOpen && !this.props.searchable) {
 			this.setState({
 				isOpen: false
 			}, this._unbindCloseMenuIfClickedOutside);
@@ -384,7 +386,7 @@ var Select = React.createClass({
 			return;
 		}
 		// If not focused, handleMouseDown will handle it
-		if (!this.state.isOpen) {
+		if (!this.state.isOpen || this.props.alwaysOpen) {
 			return;
 		}
 		event.stopPropagation();
@@ -415,11 +417,18 @@ var Select = React.createClass({
 
 	handleInputBlur: function(event) {
 		this._blurTimeout = setTimeout(() => {
-			if (this._focusAfterUpdate) return;
-			this.setState({
-				isFocused: false,
-				isOpen: false
-			});
+			if (this._focusAfterUpdat) return;
+			if (this.props.alwaysOpen) {
+				this.setState({
+					isFocused: false,
+					isOpen: true
+				});
+			} else {
+				this.setState({
+					isFocused: false,
+					isOpen: false
+				});
+			}
 		}, 50);
 		if (this.props.onBlur) {
 			this.props.onBlur(event);
@@ -442,11 +451,10 @@ var Select = React.createClass({
 			break;
 			case 13: // enter
 				if (!this.state.isOpen) return;
-
 				this.selectFocusedOption();
 			break;
 			case 27: // escape
-				if (this.state.isOpen) {
+				if (this.state.isOpen && !this.props.alwaysOpen) {
 					this.resetValue();
 				} else if (this.props.clearable) {
 					this.clearValue(event);

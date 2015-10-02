@@ -2818,6 +2818,55 @@ describe('Select', function() {
 					});
 			});
 		});
+
+		describe('alwasyOpen=true', function () {
+			var instance = null;
+			options = [
+				{ value: 0, label: 'Zero' },
+				{ value: 1, label: 'One' },
+				{ value: 2, label: 'Two' },
+				{ value: 3, label: 'Three' },
+				{ value: 4, label: 'Four' }
+			];
+			beforeEach(function () {
+				instance = createControl({
+					options: options,
+					alwaysOpen: true
+				});
+			});
+
+			it('is open', function () {
+					expect(React.findDOMNode(instance), 'to have attributes', {
+						class: 'is-open'
+					});
+			});
+
+			describe('stays open', function () {
+				it('when clicked outside', function () {
+					TestUtils.Simulate.mouseDown(getSelectControl(instance));
+					expect(React.findDOMNode(instance), 'queried for', '.Select-option',
+						'to have length', 4);
+
+					clickDocument();
+					expect(React.findDOMNode(instance), 'queried for', '.Select-option',
+						'to have length', 4);
+					expect(React.findDOMNode(instance), 'to have attributes', {
+						class: 'is-open'
+					});
+				});
+
+				it('onValue', function () {
+					typeSearchText('fo');
+					pressEnterToAccept();
+					expect(onChange, 'was called with', 'four', [{ label: 'Four', value: 'four' }]);
+					expect(React.findDOMNode(instance), 'queried for', '.Select-option',
+						'to have length', 4);
+					expect(React.findDOMNode(instance), 'to have attributes', {
+						class: 'is-open'
+					});
+				});
+			});
+		});
 	});
 
 	describe('clicking outside', function () {
