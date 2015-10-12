@@ -656,7 +656,7 @@ var StatesField = _react2['default'].createClass({
 				{ className: 'section-heading' },
 				this.props.label
 			),
-			_react2['default'].createElement(_reactSelect2['default'], { ref: 'stateSelect', options: ops, disabled: this.state.disabled, value: this.state.selectValue, onChange: this.updateValue, searchable: this.state.searchable }),
+			_react2['default'].createElement(_reactSelect2['default'], { alwaysOpen: true, ref: 'stateSelect', options: ops, disabled: this.state.disabled, value: this.state.selectValue, onChange: this.updateValue, searchable: this.state.searchable }),
 			_react2['default'].createElement(
 				'div',
 				{ style: { marginTop: 14 } },

@@ -18922,7 +18922,6 @@ module.exports = require('react/lib/ReactDOM');
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var React = require('react');
-var ReactDOM = require('react-dom');
 
 var sizerStyle = { position: 'absolute', visibility: 'hidden', height: 0, width: 0, overflow: 'scroll', whiteSpace: 'nowrap' };
 
@@ -18961,27 +18960,27 @@ var AutosizeInput = React.createClass({
 		if (!this.isMounted() || !window.getComputedStyle) {
 			return;
 		}
-		var inputStyle = window.getComputedStyle(ReactDOM.findDOMNode(this.refs.input));
-		var widthNode = ReactDOM.findDOMNode(this.refs.sizer);
+		var inputStyle = window.getComputedStyle(this.refs.input);
+		var widthNode = this.refs.sizer;
 		widthNode.style.fontSize = inputStyle.fontSize;
 		widthNode.style.fontFamily = inputStyle.fontFamily;
 		widthNode.style.letterSpacing = inputStyle.letterSpacing;
 		if (this.props.placeholder) {
-			var placeholderNode = ReactDOM.findDOMNode(this.refs.placeholderSizer);
+			var placeholderNode = this.refs.placeholderSizer;
 			placeholderNode.style.fontSize = inputStyle.fontSize;
 			placeholderNode.style.fontFamily = inputStyle.fontFamily;
 			placeholderNode.style.letterSpacing = inputStyle.letterSpacing;
 		}
 	},
 	updateInputWidth: function updateInputWidth() {
-		if (!this.isMounted() || typeof ReactDOM.findDOMNode(this.refs.sizer).scrollWidth === 'undefined') {
+		if (!this.isMounted() || typeof this.refs.sizer.scrollWidth === 'undefined') {
 			return;
 		}
 		var newInputWidth;
 		if (this.props.placeholder) {
-			newInputWidth = Math.max(ReactDOM.findDOMNode(this.refs.sizer).scrollWidth, ReactDOM.findDOMNode(this.refs.placeholderSizer).scrollWidth) + 2;
+			newInputWidth = Math.max(this.refs.sizer.scrollWidth, this.refs.placeholderSizer.scrollWidth) + 2;
 		} else {
-			newInputWidth = ReactDOM.findDOMNode(this.refs.sizer).scrollWidth + 2;
+			newInputWidth = this.refs.sizer.scrollWidth + 2;
 		}
 		if (newInputWidth < this.props.minWidth) {
 			newInputWidth = this.props.minWidth;
@@ -18996,10 +18995,10 @@ var AutosizeInput = React.createClass({
 		return this.refs.input;
 	},
 	focus: function focus() {
-		ReactDOM.findDOMNode(this.refs.input).focus();
+		this.refs.input.focus();
 	},
 	select: function select() {
-		ReactDOM.findDOMNode(this.refs.input).select();
+		this.refs.input.select();
 	},
 	render: function render() {
 		var escapedValue = (this.props.value || '').replace(/\&/g, '&amp;').replace(/ /g, '&nbsp;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
@@ -19024,7 +19023,7 @@ var AutosizeInput = React.createClass({
 });
 
 module.exports = AutosizeInput;
-},{"react":"react","react-dom":"react-dom"}],"react":[function(require,module,exports){
+},{"react":"react"}],"react":[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/React');

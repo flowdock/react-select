@@ -2,8 +2,8 @@
 (function (global){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
-var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
+var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
+var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
 
 var Option = React.createClass({
 	displayName: 'Option',
@@ -69,16 +69,10 @@ module.exports = Option;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-<<<<<<< HEAD
-var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
-var Input = (typeof window !== "undefined" ? window.AutosizeInput : typeof global !== "undefined" ? global.AutosizeInput : null);
-var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
-=======
 var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
 var ReactDOM = require('react-dom');
 var Input = (typeof window !== "undefined" ? window['AutosizeInput'] : typeof global !== "undefined" ? global['AutosizeInput'] : null);
 var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
->>>>>>> upstream/master
 var Value = require('./Value');
 var SingleValue = require('./SingleValue');
 var Option = require('./Option');
@@ -107,12 +101,9 @@ var Select = React.createClass({
 		filterOptions: React.PropTypes.func, // method to filter the options array: function ([options], filterString, [values])
 		ignoreCase: React.PropTypes.bool, // whether to perform case-insensitive filtering
 		inputProps: React.PropTypes.object, // custom attributes for the Input (in the Select-control) e.g: {'data-foo': 'bar'}
-<<<<<<< HEAD
 		isOpen: React.PropTypes.bool,
-=======
 		isLoading: React.PropTypes.bool, // whether the Select is loading externally or not (such as options being loaded)
 		labelKey: React.PropTypes.string, // path of the label value in option objects
->>>>>>> upstream/master
 		matchPos: React.PropTypes.string, // (any|start) match the start or entire string when filtering
 		matchProp: React.PropTypes.string, // (any|label|value) which option property to filter on
 		multi: React.PropTypes.bool, // multi-value input
@@ -155,12 +146,9 @@ var Select = React.createClass({
 			disabled: false,
 			ignoreCase: true,
 			inputProps: {},
-<<<<<<< HEAD
 			isOpen: false,
-=======
 			isLoading: false,
 			labelKey: 'label',
->>>>>>> upstream/master
 			matchPos: 'any',
 			matchProp: 'any',
 			name: undefined,
@@ -524,26 +512,18 @@ var Select = React.createClass({
 		var _this7 = this;
 
 		this._blurTimeout = setTimeout(function () {
-<<<<<<< HEAD
-			if (_this4._focusAfterUpdat) return;
-			if (_this4.props.alwaysOpen) {
-				_this4.setState({
+			if (_this7._focusAfterUpdate || !_this7.isMounted()) return;
+			if (_this7.props.alwaysOpen) {
+				_this7.setState({
 					isFocused: false,
 					isOpen: true
 				});
 			} else {
-				_this4.setState({
+				_this7.setState({
 					isFocused: false,
 					isOpen: false
 				});
 			}
-=======
-			if (_this7._focusAfterUpdate || !_this7.isMounted()) return;
-			_this7.setState({
-				isFocused: false,
-				isOpen: false
-			});
->>>>>>> upstream/master
 		}, 50);
 		if (this.props.onBlur) {
 			this.props.onBlur(event);
@@ -560,6 +540,13 @@ var Select = React.createClass({
 					this.popValue();
 				}
 				return;
+			case 9:
+				// tab
+				if (event.shiftKey || !this.state.isOpen || !this.state.focusedOption) {
+					return;
+				}
+				this.selectFocusedOption();
+				break;
 			case 13:
 				// enter
 				if (!this.state.isOpen) return;
@@ -1008,8 +995,8 @@ module.exports = Select;
 (function (global){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
-var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
+var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
+var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
 
 var SingleValue = React.createClass({
 	displayName: 'SingleValue',
@@ -1039,8 +1026,8 @@ module.exports = SingleValue;
 (function (global){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
-var classes = (typeof window !== "undefined" ? window.classNames : typeof global !== "undefined" ? global.classNames : null);
+var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
+var classes = (typeof window !== "undefined" ? window['classNames'] : typeof global !== "undefined" ? global['classNames'] : null);
 
 var Value = React.createClass({
 
