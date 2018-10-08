@@ -610,13 +610,13 @@ var Select = React.createClass({
 	filterOptions (options, values) {
 		var filterValue = this._optionsFilterString;
 		var exclude = (values || this.state.values).map(function(i) {
-			return i.value;
+			return i;
 		});
 		if (this.props.filterOptions) {
 			return this.props.filterOptions.call(this, options, filterValue, exclude);
 		} else {
 			var filterOption = function(op) {
-				if (this.props.multi && exclude.indexOf(op[this.props.valueKey]) > -1) return false;
+				if (this.props.multi && exclude.filter(function(obj) {return (obj.value == op.value);}).length>0) return false;
 				if (this.props.filterOption) return this.props.filterOption.call(this, op, filterValue);
 				var valueTest = String(op[this.props.valueKey]);
 				var labelTest = String(op[this.props.labelKey]);
