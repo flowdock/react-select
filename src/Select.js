@@ -572,6 +572,7 @@ var Select = React.createClass({
 			return i.value;
 		});
 		if (this.props.filterOptions) {
+			exclude = (values || this.state.values);
 			return this.props.filterOptions.call(this, options, filterValue, exclude);
 		} else {
 			var filterOption = function(op) {
