@@ -508,7 +508,7 @@ var Select = React.createClass({
 			if (this.state.timeout!=null) {
 				clearTimeout(this.state.timeout)
 			};
-			this.state.timeout = setTimeout(this.settingFilterOptions,100);
+			this.state.timeout = setTimeout(this.settingFilterOptions,200);
 		}
 	},
 
