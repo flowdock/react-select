@@ -108,7 +108,8 @@ var Select = React.createClass({
 			isFocused: false,
 			isLoading: false,
 			isOpen: this.props.isOpen || this.props.alwaysOpen,
-			options: this.props.options
+			options: this.props.options,
+			timeout: null,
 		};
 	},
 
@@ -500,15 +501,24 @@ var Select = React.createClass({
 				isOpen: true
 			}, this._bindCloseMenuIfClickedOutside);
 		} else {
-			var filteredOptions = this.filterOptions(this.state.options);
 			this.setState({
 				isOpen: true,
 				inputValue: event.target.value,
-				filteredOptions: filteredOptions,
-				focusedOption: this._getNewFocusedOption(filteredOptions)
 			}, this._bindCloseMenuIfClickedOutside);
+			if (this.state.timeout!=null) {
+				clearTimeout(this.state.timeout)
+			};
+			this.state.timeout = setTimeout(this.settingFilterOptions.bind(this) ,800);
 		}
 	},
+
+	settingFilterOptions: function settingFilterOptions(){
+			var filteredOptions = this.filterOptions(this.state.options);
+				this.setState({
+					filteredOptions: filteredOptions,
+					focusedOption: this._getNewFocusedOption(filteredOptions)
+				}, this._bindCloseMenuIfClickedOutside);
+	 },
 
 	autoloadAsyncOptions: function() {
 		this.loadAsyncOptions((this.props.value || ''), {}, () => {
