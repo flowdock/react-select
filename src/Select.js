@@ -508,7 +508,7 @@ var Select = React.createClass({
 			if (this.state.timeout!=null) {
 				clearTimeout(this.state.timeout)
 			};
-			this.state.timeout = setTimeout(this.settingFilterOptions,300);
+			this.state.timeout = setTimeout(this.settingFilterOptions,100);
 		}
 	},
 
@@ -582,6 +582,7 @@ var Select = React.createClass({
 			return i.value;
 		});
 		if (this.props.filterOptions) {
+			exclude = (values || this.state.values)
 			return this.props.filterOptions.call(this, options, filterValue, exclude);
 		} else {
 			var filterOption = function(op) {
