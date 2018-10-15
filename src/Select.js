@@ -297,12 +297,12 @@ var Select = React.createClass({
 		if (focusAfterUpdate || focusAfterUpdate === undefined) {
 			this._focusAfterUpdate = true;
 		}
-		var newState = this.getStateFromValue(value);
+		var newState = this.getStateFromValue(value); 
 		newState.isOpen = false || this.props.alwaysOpen;
 		this.fireChangeEvent(newState);
-		this.setState(newState);
+		this.setState(newState);		
 	},
-
+	
 	selectValue: function(value) {
 		if (!this.props.multi) {
 			this.setValue(value);
@@ -503,11 +503,18 @@ var Select = React.createClass({
 			var filteredOptions = this.filterOptions(this.state.options);
 			this.setState({
 				isOpen: true,
-				inputValue: event.target.value,
-				filteredOptions: filteredOptions,
-				focusedOption: this._getNewFocusedOption(filteredOptions)
+				inputValue: event.target.value
 			}, this._bindCloseMenuIfClickedOutside);
+			setTimeout(this.settingFilterOptions,0);
 		}
+	},
+
+	settingFilterOptions: function settingFilterOptions() {
+		var filteredOptions = this.filterOptions(this.state.options);
+		this.setState({
+			filteredOptions: filteredOptions,
+			focusedOption: this._getNewFocusedOption(filteredOptions)
+		}, this._bindCloseMenuIfClickedOutside);
 	},
 
 	autoloadAsyncOptions: function() {
