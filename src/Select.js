@@ -252,6 +252,7 @@ var Select = React.createClass({
 			value: valueForState,
 			values: values,
 			inputValue: '',
+			isLoading: false,
 			filteredOptions: filteredOptions,
 			placeholder: !this.props.multi && values.length ? values[0].label : placeholder,
 			focusedOption: focusedOption
@@ -298,6 +299,12 @@ var Select = React.createClass({
 		if (focusAfterUpdate || focusAfterUpdate === undefined) {
 			this._focusAfterUpdate = true;
 		}
+		var values = this.initValuesArray(value, this.state.options);
+		this.setState({
+			values: values,
+			isLoading: true,
+			inputValue: '',
+		});
 		var newState = this.getStateFromValue(value);
 		newState.isOpen = false || this.props.alwaysOpen;
 		this.fireChangeEvent(newState);
@@ -508,7 +515,7 @@ var Select = React.createClass({
 			if (this.state.timeout!=null) {
 				clearTimeout(this.state.timeout)
 			};
-			this.state.timeout = setTimeout(this.settingFilterOptions,200);
+			this.state.timeout = setTimeout(this.settingFilterOptions,50);
 		}
 	},
 
@@ -582,7 +589,6 @@ var Select = React.createClass({
 			return i.value;
 		});
 		if (this.props.filterOptions) {
-			exclude = (values || this.state.values)
 			return this.props.filterOptions.call(this, options, filterValue, exclude);
 		} else {
 			var filterOption = function(op) {
